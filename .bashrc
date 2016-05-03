@@ -44,15 +44,16 @@ alias yl='yaourt -Ql' # list files for package
 alias ye='yaourt -Qe --date' # list installed packages
 
 ### git ###
-alias gitb="git branch"
-alias gits="git status"
-alias gitl="git log"
-alias gitc="git commit -m"
-alias gita="git add"
-alias gitm="git merge"
-alias gitch="git checkout"
-#alias gitpl="git pull"
-#alias gitps="git push"
+alias git="gitdotfiles git"
+alias gitb="gitdotfiles git branch"
+alias gits="gitdotfiles git status"
+alias gitl="gitdotfiles git log"
+alias gitc="gitdotfiles git commit -m"
+alias gita="gitdotfiles git add"
+alias gitm="gitdotfiles git merge"
+alias gitch="gitdotfiles git checkout"
+#alias gitpl="gitdotfiles git pull"
+#alias gitps="gitdotfiles git push"
 
 ### apache ###
 alias apache-start="systemctl start httpd.service"
@@ -79,7 +80,14 @@ parse_git_branch() {
 
 	    git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
 
-    }
+};
 
+gitdotfiles(){
+	if [ "$(pwd)" == "$HOME" ] || [ "$(pwd)" == "/home/tiphanie/.config" ]; then
+        	GIT_DIR=~/dotfiles GIT_WORK_TREE=~ $@
+	else
+		$@
+	fi
+}
 
 
