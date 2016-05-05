@@ -1,0 +1,5 @@
+EDITFILES=0 #don’t propose to edit files (from AUR or from ABS)
+BUILD_NOCONFIRM=1 #do not prompt while building
+UP_NOCONFIRM=1 #do not prompt for AUR or build upgrades
+AURCOMMENT=1 #Show 1 last comments for packages built from AUR Unsupported
+AURVOTE=0 #don’t check the vote status for inclusion/keeping in [community], and it is unable to vote
