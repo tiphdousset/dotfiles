@@ -16,7 +16,7 @@ alias ll='ls -l'
 alias la='ls -la'
 alias db='x nemo /home/tiphanie/Dropbox'
 alias spotify='x spotify'
-alias wifi='sudo wifi-menu'
+alias w='sudo wifi-menu'
 alias cfg='cd .config/'
 alias vi=vim
 alias stop='poweroff'
@@ -27,6 +27,7 @@ alias status='sudo systemctl status'
 alias find="find -iname" #find filename
 alias android='android-studio'
 alias chromium='x chromium --disable-web-security'
+alias n='x nemo'
 
 ### yaourt / pacman ###
 alias y='yaourt'
