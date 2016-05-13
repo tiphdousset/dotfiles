@@ -65,7 +65,7 @@ hc keybind $Mod-Control-Right   resize right +$resizestep
 
 # tags
 tag_names=( {1..9} )
-tag_keys=( {1..9} 0 )
+tag_keys=( {F1,F2,F3,F4,F5,F6,F7,F8,F9} 0 )
 
 hc rename default "${tag_names[0]}" || true
 for i in ${!tag_names[@]} ; do
