@@ -9,6 +9,7 @@ acpi
 PATH="$(ruby -e 'print Gem.user_dir')/bin:$PATH"
 export GEM_HOME=$(ruby -e 'print Gem.user_dir')
 export VISUAL="vim"
+export PAGER=/usr/bin/vimpager
 
 #Aliases divers
 alias ls='ls --color=auto'
@@ -48,21 +49,23 @@ alias ye='yaourt -Qe --date' # list installed packages
 alias git="gitdotfiles git"
 alias gitb="gitdotfiles git branch"
 alias gits="gitdotfiles git status"
+alias gitsu="gitdotfiles git status -uno" #do not show untracked files
 alias gitl="gitdotfiles git log"
 alias gitc="gitdotfiles git commit -m"
 alias gita="gitdotfiles git add"
 alias gitmm="gitdotfiles git merge master"
 alias gitch="gitdotfiles git checkout"
-#alias gitpl="gitdotfiles git pull"
-#alias gitps="gitdotfiles git push"
-#git stash - git apply
+alias gitpl="gitdotfiles git pull"
+alias gitps="gitdotfiles git push"
+# # git stash - git apply
 
 ### CookForCouch ###
 alias cfc="cd /home/tiphanie/CookForCouch"
-alias translationde="app/console translation:update --force --output-format=yml de CCFrontendBundle"
-alias translationfr="app/console translation:update --force --output-format=yml de CCFrontendBundle"
-alias translationen="app/console translation:update --force --output-format=yml de CCFrontendBundle"
+alias translationde="cfc && app/console translation:update --force --output-format=yml de CCFrontendBundle"
+alias translationfr="cfc && app/console translation:update --force --output-format=yml fr CCFrontendBundle"
+alias translationen="cfc && app/console translation:update --force --output-format=yml en CCFrontendBundle"
 alias cc="rm -rf /home/tiphanie/CookForCouch/app/cache/*"
+alias assets="cfc && app/console assets:install"
 
 ### apache ###
 alias apache-start="systemctl start httpd.service"
@@ -94,7 +97,7 @@ parse_git_branch() {
 #TODO:check gitc problem with ""
 gitdotfiles(){
 	if [ "$(pwd)" == "$HOME" ] || [ "$(pwd)" == "/home/tiphanie/.config" ]; then
-        	GIT_DIR=~/dotfiles GIT_WORK_TREE=~ $@
+		GIT_DIR=~/dotfiles GIT_WORK_TREE=~ $@
 	else
 		$@	
 	fi
