@@ -29,6 +29,8 @@ alias find="find -iname" #find filename
 alias android='android-studio'
 alias chromium='x chromium --disable-web-security'
 alias n='x nemo'
+alias disk="lsblk -f"
+alias diskl="sudo fdisk -l"
 
 ### yaourt / pacman ###
 alias y='yaourt'
@@ -49,6 +51,7 @@ alias ye='yaourt -Qe --date' # list installed packages
 alias git="gitdotfiles git"
 alias gitb="gitdotfiles git branch"
 alias gits="gitdotfiles git status"
+alias gitd="gitdotfiles git diff"
 alias gitsu="gitdotfiles git status -uno" #do not show untracked files
 alias gitl="gitdotfiles git log"
 alias gitc="gitdotfiles git commit -m"
