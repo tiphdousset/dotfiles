@@ -12,6 +12,8 @@ export VISUAL="vim"
 export PAGER=/usr/bin/vimpager
 
 #Aliases divers
+alias ssh='TERM=xterm-256color ssh'
+alias god="ssh godzilla"
 alias ls='ls --color=auto'
 alias ll='ls -l'
 alias la='ls -la'
