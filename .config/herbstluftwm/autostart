@@ -24,6 +24,8 @@ hc keybind $Mod-c close
 hc keybind $Mod-Return spawn termite 
 hc keybind $Mod-s spawn dmenu_run 
 hc keybind $Mod-i spawn chromium 
+hc keybind $Mod-n spawn nemo
+hc keybind $Mod-d spawn nemo /home/tiphanie/Dropbox
 hc keybind $Mod-g spawn chromium https://mail.google.com/
 # basic movement
 # focusing clients
