@@ -11,6 +11,9 @@ export GEM_HOME=$(ruby -e 'print Gem.user_dir')
 export VISUAL="vim"
 export PAGER=/usr/bin/vimpager
 
+#Memo
+#htop or atop to see CPU
+
 #Aliases
 
 ### divers ###
@@ -34,6 +37,9 @@ alias chromium='x chromium --disable-web-security'
 alias n='x nemo'
 alias disk="lsblk -f"
 alias diskl="sudo fdisk -l"
+alias p="pavucontrol" #sound setting
+alias getpowersave="iw wlp1s0 get power_save"
+alias setpowersave="sudo iw wlp1s0 set power_save"
 
 ### yaourt / pacman ###
 alias y='yaourt'
@@ -55,7 +61,8 @@ alias git="gitdotfiles git"
 alias gitb="gitdotfiles git branch"
 alias gits="gitdotfiles git status"
 alias gitsu="gitdotfiles git status -uno" #do not show untracked files
-alias gitd="gitdotfiles git diff"
+alias gitds="gitdotfiles git diff --staged" #in case we want to make a diff of a file already staged
+alias gitd="gitdotfiles git diff" 
 alias gitl="gitdotfiles git log"
 alias gitc="gitdotfiles git commit -m"
 alias gita="gitdotfiles git add"
@@ -67,26 +74,39 @@ alias gitps="gitdotfiles git push"
 
 ### CookForCouch ###
 alias cfc="cd /home/tiphanie/CookForCouch"
-alias translationde="cfc && app/console translation:update --force --output-format=yml de CCFrontendBundle && app/console translation:update --force --output-format=yml de app"
-alias translationfr="cfc && app/console translation:update --force --output-format=yml fr CCFrontendBundle && app/console translation:update --force --output-format=yml fr app"
-alias translationen="cfc && app/console translation:update --force --output-format=yml en CCFrontendBundle && app/console translation:update --force --output-format=yml en app"
+alias translationde="sudo chmod -R 777 /home/tiphanie/CookForCouch/app/cache/ && cfc && app/console translation:update --force --output-format=yml de CCFrontendBundle && app/console translation:update --force --output-format=yml de app"
+alias translationfr="sudo chmod -R 777 /home/tiphanie/CookForCouch/app/cache/ && cfc && app/console translation:update --force --output-format=yml fr CCFrontendBundle && app/console translation:update --force --output-format=yml fr app"
+alias translationen="sudo chmod -R 777 /home/tiphanie/CookForCouch/app/cache/ && cfc && app/console translation:update --force --output-format=yml en CCFrontendBundle && app/console translation:update --force --output-format=yml en app"
 alias cc="sudo rm -rf /home/tiphanie/CookForCouch/app/cache/*"
 alias assets="cfc && app/console assets:install"
 
 ### Online CookForCouch ###
-alias sshtip="ssh tiph@cookforcouch.ovh && cd /var/www/CookForCouch"
+alias sshtip="ssh tiph@cookforcouch.com"
+#cd /var/www/CookForCouch
+# sudo su
+# git pull
 # app/console assets:install
 # app/console doctrine:schema:update —force
 # app/console cache:clear --env=prod
 # chmod -R 777 app/cache/
 # chmod -R 777 app/logs/
+# connect to online DB: mysql -u root -p
+# show databases; use cookforcouch;
+
 
 ### systemctl ###
 #to reinstall mysql: rm -rf /var/lib/mysql and rm /etc/mysql
+## dropbox and syncthing als user with: systemctl --user start
 alias start="systemctl start" #use: start mysqld
 alias restart="systemctl restart" #use: restart httpd (stands for apache) 
 alias stop="systemctl stop" 
 alias status="systemctl status"
+#as user
+alias startu="systemctl --user start"
+alias restartu="systemctl --user restart" 
+alias stopu="systemctl --user stop" 
+alias statusu="systemctl --user status"
+
 
 #PS1='[\u@\h \W]\$ ' #u for user (tiphanie) and h for host (mango)
 export PS1="[\u@\h \W\[\033[32m\]\$(parse_git_branch)\[\033[00m\]]$ "
