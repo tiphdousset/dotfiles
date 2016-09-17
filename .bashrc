@@ -134,6 +134,7 @@ gitdotfiles(){
 	else
 		$@	
 	fi
-}
+};
+
 
 

@@ -3,7 +3,7 @@ call plug#begin('~/.vim/plugged')
 Plug 'tomasr/molokai' "colorscheme
 Plug 'tpope/vim-commentary' "comment
 Plug 'vim-ruby/vim-ruby'
-Plug 'tpope/vim-eunuch' "unix command
+Plug 'tpope/vim-eunuch' "unix command to be able to modify a read-only file :SudoWrite
 Plug 'davidhalter/jedi-vim' "completion tab for python file
 Plug 'terryma/vim-multiple-cursors' " sublime-like multiple cursors
 call plug#end()
