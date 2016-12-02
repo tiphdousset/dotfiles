@@ -25,6 +25,7 @@ hc keybind $Mod-Return spawn termite
 hc keybind $Mod-s spawn dmenu_run 
 hc keybind $Mod-i spawn chromium 
 hc keybind $Mod-n spawn nemo
+hc keybind $Mod-z spawn sh /home/tiphanie/Downloads/idea-IC-163.7743.44/bin/idea.sh 
 hc keybind $Mod-d spawn nemo /home/tiphanie/Dropbox
 hc keybind $Mod-g spawn chromium https://mail.google.com/
 # basic movement

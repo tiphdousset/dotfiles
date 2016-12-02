@@ -6,11 +6,12 @@
 [[ $- != *i* ]] && return
 #acpi displays the status of the battery
 acpi
-PATH="$(ruby -e 'print Gem.user_dir')/bin:$PATH"
+#PATH="$(ruby -e 'print Gem.user_dir')/bin:$PATH"
 export GEM_HOME=$(ruby -e 'print Gem.user_dir')
 export VISUAL="vim"
 export PAGER=/usr/bin/vimpager
 
+export PATH="/usr/lib/jvm/java-8-openjdk/bin:$PATH"
 #Memo
 #htop or atop to see CPU
 
@@ -41,6 +42,15 @@ alias p="pavucontrol" #sound setting
 alias getpowersave="iw wlp1s0 get power_save"
 alias setpowersave="sudo iw wlp1s0 set power_save"
 
+### How to make a backup from hd1 to hd2 ###
+
+#ldbsk #to know where hd1 and hd2 are
+#pmount sdb1 #mount sdb1 to /media/sdb1
+#pmount sdbc1 #mount sdc1 to /media/sdc1
+#rsync -ahP --delete /media/sdb1/ /media/sdc1/backup ; po #copy the content of hd1 to hd2 and then switch off the computer
+#du -sh /media/sdc1 #show the size of sdc1
+
+
 ### yaourt / pacman ###
 alias y='yaourt'
 alias yu='yaourt -Syua --devel --noconfirm' 
@@ -68,8 +78,9 @@ alias gitc="gitdotfiles git commit -m"
 alias gita="gitdotfiles git add"
 alias gitmm="gitdotfiles git merge master"
 alias gitch="gitdotfiles git checkout"
-alias gitpl="gitdotfiles git pull"
+alias gitpl="gitdotfiles git pull --rebase"
 alias gitps="gitdotfiles git push"
+alias gitll="git log --oneline --all --graph --decorate" #show git log with a graph
 # # git stash - git apply
 
 ### CookForCouch ###
@@ -91,7 +102,7 @@ alias sshtip="ssh tiph@cookforcouch.com"
 # chmod -R 777 app/cache/
 # chmod -R 777 app/logs/
 # connect to online DB: mysql -u root -p
-# show databases; use cookforcouch;
+# show databases; use cookforcouch; show tables;
 
 
 ### systemctl ###
@@ -106,7 +117,6 @@ alias startu="systemctl --user start"
 alias restartu="systemctl --user restart" 
 alias stopu="systemctl --user stop" 
 alias statusu="systemctl --user status"
-
 
 #PS1='[\u@\h \W]\$ ' #u for user (tiphanie) and h for host (mango)
 export PS1="[\u@\h \W\[\033[32m\]\$(parse_git_branch)\[\033[00m\]]$ "
