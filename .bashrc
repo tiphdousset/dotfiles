@@ -18,6 +18,7 @@ export PATH="/usr/lib/jvm/java-8-openjdk/bin:$PATH"
 #Aliases
 
 ### divers ###
+alias on='ping -c 1 8.8.8.8 -W 5 && ping -c 1 google.com -W 5'
 alias ssh='TERM=xterm-256color ssh'
 alias god="ssh godzilla"
 alias ls='ls --color=auto'
@@ -37,17 +38,22 @@ alias android='android-studio'
 alias chromium='x chromium --disable-web-security'
 alias n='x nemo'
 alias disk="lsblk -f"
-alias diskl="sudo fdisk -l"
+alias diskl="sudo fdisk -l" #Displays all partitions
 alias p="pavucontrol" #sound setting
 alias getpowersave="iw wlp1s0 get power_save"
 alias setpowersave="sudo iw wlp1s0 set power_save"
+alias s="x chromium --app-id=bikioccmkafdpakkkcpdbppfkghcmihk"
+alias fv="vim \$(fzf)"
+alias hc="herbstclient"
+alias monitor="hc detect_monitor; hc reload"
 
 ### How to make a backup from hd1 to hd2 ###
 
-#ldbsk #to know where hd1 and hd2 are
-#pmount sdb1 #mount sdb1 to /media/sdb1
+#lsblk #to know where hd1 and hd2 are
+#pmount sdb1 #mount sdb1 to /run/..../media/sdb1
 #pmount sdbc1 #mount sdc1 to /media/sdc1
 #rsync -ahP --delete /media/sdb1/ /media/sdc1/backup ; po #copy the content of hd1 to hd2 and then switch off the computer
+#rsync -ahP --delete --backup --backup-dir=../backupdir /media/sdb1/ /media/sdc1/backup ; po #copy the content of hd1 to hd2 and then switch off the computer
 #du -sh /media/sdc1 #show the size of sdc1
 
 
@@ -117,6 +123,16 @@ alias startu="systemctl --user start"
 alias restartu="systemctl --user restart" 
 alias stopu="systemctl --user stop" 
 alias statusu="systemctl --user status"
+
+#Raspbery pi
+alias sshpi="ssh -p 33500 pi@tiph.ddns.net" #mangoPi23
+
+#PHP
+alias phpu="phpunit -c phpunit.xml" #start all php unit tests
+
+# fzf fuzzy file finder
+export FZF_DEFAULT_COMMAND='ag --hidden -g ""'
+export FZF_DEFAULT_OPTS="-x -m --ansi --exit-0 --select-1" # extended match and multiple selections
 
 #PS1='[\u@\h \W]\$ ' #u for user (tiphanie) and h for host (mango)
 export PS1="[\u@\h \W\[\033[32m\]\$(parse_git_branch)\[\033[00m\]]$ "
