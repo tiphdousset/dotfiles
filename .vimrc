@@ -11,6 +11,11 @@ Plug 'junegunn/fzf.vim' " fuzzy selector
 Plug 'haya14busa/incsearch.vim' " highlight all matches in incremental search (conflicts with vim-indexed-search)
 call plug#end()
 
+function! s:find_git_root()
+    return system('git rev-parse --show-toplevel 2> /dev/null')[:-2]
+endfunction
+
+command! ProjectFiles execute 'Files' s:find_git_root()
 
 syntax on
 colorscheme molokai
@@ -192,4 +197,12 @@ let g:multi_cursor_exit_from_visual_mode = 0
 let g:multi_cursor_exit_from_insert_mode = 0
 let mapleader="\<space>"
 
+
+" don't lose selection when indenting
+vnoremap < <gv
+vnoremap > >gv
+vnoremap = =gv
 nnoremap <silent> <Leader><Leader> :nohlsearch<cr>
+
+nmap <Leader>e :ProjectFiles<CR>
+nmap <Leader>vv :e  ~/.vimrc<CR>

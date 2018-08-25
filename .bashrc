@@ -18,7 +18,9 @@ export PATH="/usr/lib/jvm/java-8-openjdk/bin:$PATH"
 #Aliases
 
 ### divers ###
-alias on='ping -c 1 8.8.8.8 -W 5 && ping -c 1 google.com -W 5'
+alias downbr0='ip link set br0 down'
+alias delbr0='brctl delbr br0'
+alias on='ping -c 8.8.8.8 -W 5 && ping -c 1 google.com -W 5'
 alias ssh='TERM=xterm-256color ssh'
 alias god="ssh godzilla"
 alias ls='ls --color=auto'
@@ -26,14 +28,13 @@ alias ll='ls -l'
 alias la='ls -la'
 alias db='x nemo /home/tiphanie/Dropbox'
 alias spotify='x spotify'
-alias w='nmcli_dmenu'
-alias cfg='cd .config/'
+alias w='networkmanager_dmenu'
+alias cfg='cd ~/.config/'
 alias vi=vim
 alias po='poweroff'
 alias meteo='wego'
 alias ..="cd .."
 alias dbcfc="mysql -h 212.47.241.162 -u root -p"
-alias find="find -iname" #find filename
 alias android='android-studio'
 alias chromium='x chromium --disable-web-security'
 alias n='x nemo'
@@ -45,10 +46,12 @@ alias setpowersave="sudo iw wlp1s0 set power_save"
 alias s="x chromium --app-id=bikioccmkafdpakkkcpdbppfkghcmihk"
 alias fv="vim \$(fzf)"
 alias hc="herbstclient"
-alias monitor="hc detect_monitor; hc reload"
+alias monitor="hc detect_monitors; hc reload"
+alias fr="setxkbmap fr"
+alias neo="setxkbmap de neo"
 
 ### How to make a backup from hd1 to hd2 ###
-
+# the option --delete will delete in the destination folder all the files/folders that are not present in the source folder
 #lsblk #to know where hd1 and hd2 are
 #pmount sdb1 #mount sdb1 to /run/..../media/sdb1
 #pmount sdbc1 #mount sdc1 to /media/sdc1

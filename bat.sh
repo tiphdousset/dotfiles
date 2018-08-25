@@ -8,5 +8,5 @@ export DISPLAY=:0
 
 if [[ "$bat" -lt "10" ]] && [[ "$state" == "discharging" ]]; then
 #DISPLAY=${DISPLAY} DBUS_SESSION_BUS_ADDRESS=${DBUS_ADDRESS} notify-send "Attention!" "Battery is less than ${bat}%" --icon=dialog-information
-    XDG_RUNTIME_DIR=/run/user/1000 espeak battery > /home/tiphanie/error.log 2>&1
+    XDG_RUNTIME_DIR=/run/user/1000 espeak "The battery is less than "$bat" percent" > /home/tiphanie/error.log 2>&1
 fi
