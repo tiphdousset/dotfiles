@@ -50,6 +50,10 @@ alias monitor="hc detect_monitors; hc reload"
 alias fr="setxkbmap fr"
 alias neo="setxkbmap de neo"
 
+### 30ans ###
+alias a="cd tentaine/anniversaire"
+alias anniv="cd tentaine/anniversaire; sbt dev"
+
 ### How to make a backup from hd1 to hd2 ###
 # the option --delete will delete in the destination folder all the files/folders that are not present in the source folder
 #lsblk #to know where hd1 and hd2 are
