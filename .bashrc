@@ -1,4 +1,3 @@
-
 # ~/.bashrc
 #
 
@@ -44,15 +43,25 @@ alias p="pavucontrol" #sound setting
 alias getpowersave="iw wlp1s0 get power_save"
 alias setpowersave="sudo iw wlp1s0 set power_save"
 alias s="x chromium --app-id=bikioccmkafdpakkkcpdbppfkghcmihk"
-alias fv="vim \$(fzf)"
 alias hc="herbstclient"
 alias monitor="hc detect_monitors; hc reload"
 alias fr="setxkbmap fr"
 alias neo="setxkbmap de neo"
+alias v='vi $(fzf)'
 
 ### 30ans ###
-alias a="cd tentaine/anniversaire"
-alias anniv="cd tentaine/anniversaire; sbt dev"
+alias a="cd ~/tentaine/anniversaire"
+alias anniv="cd ~/tentaine/anniversaire; sbt dev"
+### Database ###
+#First start docker (systemctl start docker)
+#Then start the server for the DB (docker run -p 5432:5432 postgres:11.1)
+#Then either start the GUI (pgadmin4) or connect via command line (psql -U postgres -p 5432 -h localhost)
+
+### psql ###
+# \d to show the tables
+#then nromal sql command can be used for example: select * from guests;
+
+
 
 ### How to make a backup from hd1 to hd2 ###
 # the option --delete will delete in the destination folder all the files/folders that are not present in the source folder
