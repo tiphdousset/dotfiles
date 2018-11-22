@@ -9,6 +9,7 @@ Plug 'terryma/vim-multiple-cursors' " sublime-like multiple cursors
 Plug 'airblade/vim-gitgutter' " VCS change info per line (only git)
 Plug 'junegunn/fzf.vim' " fuzzy selector
 Plug 'haya14busa/incsearch.vim' " highlight all matches in incremental search (conflicts with vim-indexed-search)
+Plug 'tpope/vim-surround' "surround text with quotes for example
 call plug#end()
 
 function! s:find_git_root()
@@ -117,7 +118,7 @@ set clipboard=unnamedplus
 " set secure                        " secure local vimrc execution
 " set wildignore=*.o,*.obj,*.class,target/**
 " set viewoptions=cursor,folds,slash,unix
-
+set mouse=a "click with mouse activated
  " backup/undo/swap files
  set swapfile
  set backup
