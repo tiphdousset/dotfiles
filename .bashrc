@@ -153,6 +153,12 @@ export FZF_DEFAULT_OPTS="-x -m --ansi --exit-0 --select-1" # extended match and 
 #PS1='[\u@\h \W]\$ ' #u for user (tiphanie) and h for host (mango)
 export PS1="[\u@\h \W\[\033[32m\]\$(parse_git_branch)\[\033[00m\]]$ "
 
+#Pacman
+alias pacmanrm="sudo rm /var/lib/pacman/db.lck" #if the error 'pacman is alreadw in use" occurs
+
+#Jump to recently used directories
+[[ -r "/usr/share/z/z.sh" ]] && source /usr/share/z/z.sh
+
 
 #bash function
 #Example 'x nemo' will start the file manager and close the terminal from where the command was entered

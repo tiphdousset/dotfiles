@@ -169,7 +169,6 @@ set mouse=a "click with mouse activated
  \ if line("'\"") > 0 && line("'\"") <= line("$") |
  \   if &filetype == 'gitcommit' |
  \       setlocal spell |
- \       startinsert |
  \   else |
  \      exe "normal! g`\"" |
  \    endif |
