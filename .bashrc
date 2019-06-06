@@ -48,6 +48,7 @@ alias monitor="hc detect_monitors; hc reload"
 alias fr="setxkbmap fr"
 alias neo="setxkbmap de neo"
 alias v='vi $(fzf)'
+alias vv='vi ~/.vimrc'
 
 ### 30ans ###
 alias a="cd ~/tentaine/anniversaire"

@@ -10,6 +10,9 @@ Plug 'airblade/vim-gitgutter' " VCS change info per line (only git)
 Plug 'junegunn/fzf.vim' " fuzzy selector
 Plug 'haya14busa/incsearch.vim' " highlight all matches in incremental search (conflicts with vim-indexed-search)
 Plug 'tpope/vim-surround' "surround text with quotes for example
+Plug 'ornicar/vim-scala'
+Plug 'kana/vim-textobj-user' " framework for custom text objects
+Plug 'PeterRincker/vim-argumentative'  " text object ',' / also provides argument movements with >, ],
 call plug#end()
 
 function! s:find_git_root()
@@ -76,7 +79,7 @@ set clipboard=unnamedplus
 " " display
 " set cursorline                    " highlight current line
  set number                        " enable line numbers
- set relativenumber                " show relative numbers for all lines but the current one
+" set relativenumber                " show relative numbers for all lines but the current one
 " set ruler                         " show the cursor position all the time
  set incsearch                     " do incremental searching
  set ignorecase                    " smart case sensitive search
@@ -206,3 +209,7 @@ nnoremap <silent> <Leader><Leader> :nohlsearch<cr>
 
 nmap <Leader>e :ProjectFiles<CR>
 nmap <Leader>vv :e  ~/.vimrc<CR>
+
+map Q <Nop>
+
+nmap <Leader>/ :nohls <cr>
