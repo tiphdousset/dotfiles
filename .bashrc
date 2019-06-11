@@ -3,8 +3,6 @@
 
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
-# acpi displays the status of the battery
-acpi
 
 export GEM_HOME=$(ruby -e 'print Gem.user_dir')
 export VISUAL="nvim"
@@ -25,11 +23,10 @@ export ELM_DEBUGGER=false
 alias c="cd ~/Projects/Hivemind/bspayone/cbis-tim-data/"
 alias o="cd ~/Projects/Hivemind/bspayone/cbis-omnichannel/"
 alias p="cd ~/Projects/"
-alias d="cd ~/Downloads/"
+alias cdd="cd ~/Downloads/"
 
 # dotfile management
 DOTFILES_GIT='GIT_DIR=$HOME/Projects/dotfiles GIT_WORK_TREE=$HOME'
-DOTFILES_PRIVATE_GIT='GIT_DIR=$HOME/Projects/dotfiles-private GIT_WORK_TREE=$HOME'
 alias d="$DOTFILES_GIT git -c core.excludesfile=~/.gitignore-dotfiles"
 
 ### divers ###
@@ -166,7 +163,7 @@ export FZF_DEFAULT_COMMAND='ag --hidden -g ""'
 export FZF_DEFAULT_OPTS="-x -m --ansi --exit-0 --select-1" # extended match and multiple selections
 
 #
-='[\u@\h \W]\$ ' #u for user (tiphanie) and h for host (mango)
+#='[\u@\h \W]\$ ' #u for user (tiphanie) and h for host (mango)
 export PS1="[\u@\h \W\[\033[32m\]\$(parse_git_branch)\[\033[00m\]]$ "
 
 # Pacman
