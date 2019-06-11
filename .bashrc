@@ -27,6 +27,11 @@ alias o="cd ~/Projects/Hivemind/bspayone/cbis-omnichannel/"
 alias p="cd ~/Projects/"
 alias d="cd ~/Downloads/"
 
+# dotfile management
+DOTFILES_GIT='GIT_DIR=$HOME/Projects/dotfiles GIT_WORK_TREE=$HOME'
+DOTFILES_PRIVATE_GIT='GIT_DIR=$HOME/Projects/dotfiles-private GIT_WORK_TREE=$HOME'
+alias d="$DOTFILES_GIT git -c core.excludesfile=~/.gitignore-dotfiles"
+
 ### divers ###
 alias vi=$EDITOR
 alias vim=$EDITOR
