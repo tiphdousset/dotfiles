@@ -7,6 +7,7 @@
 export GEM_HOME=$(ruby -e 'print Gem.user_dir')
 export VISUAL="nvim"
 export EDITOR="$VISUAL"
+# export PAGER=/usr/bin/vimpager
 # PATH="$(ruby -e 'print Gem.user_dir')/bin:$PATH"
 export PATH="/usr/lib/jvm/java-8-openjdk/bin:$PATH"
 export CLICOLOR=1
@@ -35,7 +36,7 @@ alias downbr0='ip link set br0 down'
 alias delbr0='brctl delbr br0'
 alias on='ping -c 8.8.8.8 -W 5 && ping -c 1 google.com -W 5'
 alias ssh='TERM=xterm-256color ssh'
-alias ls='ls --color=auto'
+# alias ls='ls --color=auto'
 alias ll='ls -l'
 alias la='ls -la'
 alias db='x nemo /home/tiphanie/Dropbox'
