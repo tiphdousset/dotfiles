@@ -1,0 +1,103 @@
+[filter "spacify"]
+    clean = expand --tabs=4 --initial
+
+[user]
+	name = tiphanie
+	email = tiphanie.dousset@hivemindtechnologies.com
+[core]
+	excludesfile = ~/.config/git/ignore
+
+[diff "scala"]
+    xfuncname = "^\\s*(.*(def|object|class|trait) .*)$"
+
+[diff "markdown"]
+    xfuncname = "^#+.*$"
+
+[credential]
+	helper = osxkeychain
+
+[pull]
+    ff = only 
+	rebase = true
+
+[diff]
+    algorithm = histogram
+    indentHeuristic = true
+    wordRegex=[A-Z][a-z]*|[a-z]+|[^[:space:]] # see camel case as separate words
+
+[commit]
+    verbose = true
+
+[fetch]
+    prune = true # remove old branches on fetch
+
+[merge]
+    ff = only
+    ignore-space-change = true
+    conflictstyle = diff3 # this allows to show 3 panes in meld
+    tool = meld
+
+[rebase]
+    autoStash = true
+    autoSquash = true # useful for `git commit --fixup <hash>` (https://fle.github.io/git-tip-keep-your-branch-clean-with-fixup-and-autosquash.html)
+
+[status]
+    showUntrackedFiles = all
+
+[apply]
+    ignoreWhitespace = change # do not produce whitespace conflicts
+
+[alias]
+    s = status
+    su = status -uno #  do not show untracked files
+    a = add
+    ch = checkout
+    chb = checkout -b
+    c = commit
+    cm = commit -m
+    ca = commit -a
+    amend = commit --amend
+    unstage = reset HEAD # unstage all staged files
+    prev = reset HEAD~1 # undo last commit
+    fixup = "!zsh -ic 'git commit --fixup $(git-select-commit)'"
+    ignore = "!f() { echo \"$1\" >> .gitignore; }; f"
+    cl = clone
+    b = branch
+    br = branch -r
+    dfls = diff --staged
+    sdf = show --color-words
+    ps = push
+    pf = push --force-with-lease
+    pl = pull
+    f = fetch
+    fa = fetch --all
+    d = diff
+    l = log
+    lg= log --oneline --all --graph --decorate # show git log with a graph
+
+    po = "!git push --set-upstream origin \"$(git rev-parse --abbrev-ref HEAD)\"" # push current branch to origin
+    dbr = "!f() { git branch -D $1; git push origin :$1;}; f" # delete local and remote branch
+    wip = "!git add -A; git commit --message='wip'" # create a "wip" commit with all current unstaged files
+    wipbr = "!f() { git chb $1; git wip; git po;}; f" # create a branch + wip + push branch to origin
+
+    rb = rebase
+    rbm = rebase master
+    rbom = rebase origin/master
+    rba = rebase --abort
+    rbs = rebase --skip
+    rbc = rebase --continue
+    rbi = rebase -i
+    rbim = rebase -i master
+    rbiom = rebase -i origin/master
+
+    m = merge
+    mra = merge --abort
+    mrs = merge --skip
+    mrc = merge --continue
+
+    cp = cherry-pick
+    cpa = cherry-pick --abort
+    cps = cherry-pick --skip
+    cpc = cherry-pick --continue
+
+    h = help

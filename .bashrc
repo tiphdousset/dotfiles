@@ -7,7 +7,6 @@
 export GEM_HOME=$(ruby -e 'print Gem.user_dir')
 export VISUAL="nvim"
 export EDITOR="$VISUAL"
-export PAGER=/usr/bin/vimpager
 # PATH="$(ruby -e 'print Gem.user_dir')/bin:$PATH"
 export PATH="/usr/lib/jvm/java-8-openjdk/bin:$PATH"
 export CLICOLOR=1
@@ -20,14 +19,14 @@ export ELM_DEBUGGER=false
 # Aliases
 
 ### Hivemind ###
-alias c="cd ~/Projects/Hivemind/bspayone/cbis-tim-data/"
-alias o="cd ~/Projects/Hivemind/bspayone/cbis-omnichannel/"
-alias p="cd ~/Projects/"
+alias ti="cd ~/Projects/Hivemind/bspayone/cbis-tim-data/"
+alias om="cd ~/Projects/Hivemind/bspayone/cbis-omnichannel/"
+alias pr="cd ~/Projects/"
 alias cdd="cd ~/Downloads/"
 
 # dotfile management
 DOTFILES_GIT='GIT_DIR=$HOME/Projects/dotfiles GIT_WORK_TREE=$HOME'
-alias d="$DOTFILES_GIT git -c core.excludesfile=~/.gitignore-dotfiles"
+alias dgit="$DOTFILES_GIT git -c core.excludesfile=~/.gitignore-dotfiles"
 
 ### divers ###
 alias vi=$EDITOR
@@ -36,7 +35,6 @@ alias downbr0='ip link set br0 down'
 alias delbr0='brctl delbr br0'
 alias on='ping -c 8.8.8.8 -W 5 && ping -c 1 google.com -W 5'
 alias ssh='TERM=xterm-256color ssh'
-alias god="ssh godzilla"
 alias ls='ls --color=auto'
 alias ll='ls -l'
 alias la='ls -la'
@@ -44,7 +42,6 @@ alias db='x nemo /home/tiphanie/Dropbox'
 alias spotify='x spotify'
 alias w='networkmanager_dmenu'
 alias cfg='cd ~/.config/'
-alias po='poweroff'
 alias meteo='wego'
 alias ..="cd .."
 alias dbcfc="mysql -h 212.47.241.162 -u root -p"
@@ -102,7 +99,7 @@ alias yl='yaourt -Ql' # list files for package
 alias ye='yaourt -Qe --date' # list installed packages
 
 ### git ###
-alias gitb="git git branch"
+alias gitb="git branch"
 alias gits="git status"
 alias gitsu="git status -uno" #do not show untracked files
 alias gitds="git diff --staged" #in case we want to make a diff of a file already staged
@@ -115,7 +112,6 @@ alias gitch="git checkout"
 alias gitpl="git pull --rebase"
 alias gitps="git push"
 alias gitll="git log --oneline --all --graph --decorate" #show git log with a graph
-# git stash - git apply
 
 ### CookForCouch ###
 alias cfc="cd /home/tiphanie/CookForCouch"
