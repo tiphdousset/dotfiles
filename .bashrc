@@ -27,7 +27,7 @@ alias cdd="cd ~/Downloads/"
 
 # dotfile management
 DOTFILES_GIT='GIT_DIR=$HOME/Projects/dotfiles GIT_WORK_TREE=$HOME'
-alias dgit="$DOTFILES_GIT git -c core.excludesfile=~/.gitignore-dotfiles"
+alias gitd="$DOTFILES_GIT git -c core.excludesfile=~/.gitignore-dotfiles"
 
 ### divers ###
 alias vi=$EDITOR
@@ -52,9 +52,9 @@ alias n='x nemo'
 alias disk="lsblk -f"
 alias diskl="sudo fdisk -l" # Displays all partitions
 alias p="pavucontrol" # sound setting
-alias getpowersave="iw wlp1s0 get power_save"
+alias tpowersave="iw wlp1s0 get power_save"
 alias setpowersave="sudo iw wlp1s0 set power_save"
-alias s="x chromium --app-id=bikioccmkafdpakkkcpdbppfkghcmihk"
+# alias s="x chromium --app-id=bikioccmkafdpakkkcpdbppfkghcmihk"
 alias hc="herbstclient"
 alias monitor="hc detect_monitors; hc reload"
 alias fr="setxkbmap fr"
@@ -63,7 +63,7 @@ alias v='vi $(fzf)'
 alias vv='vi ~/.vimrc'
 
 ### Birthday project ###
-alias a="cd ~/tentaine/anniversaire"
+alias cda="cd ~/tentaine/anniversaire"
 alias anniv="cd ~/tentaine/anniversaire; sbt dev"
 ### Database ###
 # First start docker (systemctl start docker)
@@ -98,21 +98,6 @@ alias yb='yaourt -Sb' # build package
 alias yo='yaourt -Qo' # package for command
 alias yl='yaourt -Ql' # list files for package
 alias ye='yaourt -Qe --date' # list installed packages
-
-### git ###
-alias gitb="git branch"
-alias gits="git status"
-alias gitsu="git status -uno" #do not show untracked files
-alias gitds="git diff --staged" #in case we want to make a diff of a file already staged
-alias gitd="git diff" 
-alias gitl="git log"
-alias gitc="git commit -m"
-alias gita="git add"
-alias gitmm="git merge master"
-alias gitch="git checkout"
-alias gitpl="git pull --rebase"
-alias gitps="git push"
-alias gitll="git log --oneline --all --graph --decorate" #show git log with a graph
 
 ### CookForCouch ###
 alias cfc="cd /home/tiphanie/CookForCouch"
