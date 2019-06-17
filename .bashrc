@@ -22,6 +22,8 @@ export ELM_DEBUGGER=false
 ### Hivemind ###
 alias ti="cd ~/Projects/Hivemind/bspayone/cbis-tim-data/"
 alias om="cd ~/Projects/Hivemind/bspayone/cbis-omnichannel/"
+alias ha="cd ~/Projects/Hivemind/hagebau/"
+alias hi="cd ~/Projects/Hivemind/"
 alias pr="cd ~/Projects/"
 alias cdd="cd ~/Downloads/"
 
