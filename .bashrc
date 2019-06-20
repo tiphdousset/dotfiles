@@ -10,6 +10,7 @@ export EDITOR="$VISUAL"
 # export PAGER=/usr/bin/vimpager
 # PATH="$(ruby -e 'print Gem.user_dir')/bin:$PATH"
 export PATH="/usr/lib/jvm/java-8-openjdk/bin:$PATH"
+export PATH="/Users/tiphanie/Library/Python/2.7/bin:$PATH"
 export CLICOLOR=1
 export LSCOLORS=GxFxCxDxBxegedabagaced
 export ELM_DEBUGGER=false
@@ -24,14 +25,17 @@ alias ti="cd ~/Projects/Hivemind/bspayone/cbis-tim-data/"
 alias om="cd ~/Projects/Hivemind/bspayone/cbis-omnichannel/"
 alias ha="cd ~/Projects/Hivemind/hagebau/"
 alias hi="cd ~/Projects/Hivemind/"
-alias pr="cd ~/Projects/"
-alias cdd="cd ~/Downloads/"
 
 # dotfile management
 DOTFILES_GIT='GIT_DIR=$HOME/Projects/dotfiles GIT_WORK_TREE=$HOME'
 alias gitd="$DOTFILES_GIT git -c core.excludesfile=~/.gitignore-dotfiles"
+alias vv='vi ~/.vimrc'
+alias vb='vi ~/.bashrc'
+alias vg='vi ~/.gitconfig'
 
 ### divers ###
+alias pr="cd ~/Projects/"
+alias dw="cd ~/Downloads/"
 alias vi=$EDITOR
 alias vim=$EDITOR
 alias downbr0='ip link set br0 down'
@@ -39,15 +43,14 @@ alias delbr0='brctl delbr br0'
 alias on='ping -c 8.8.8.8 -W 5 && ping -c 1 google.com -W 5'
 alias ssh='TERM=xterm-256color ssh'
 # alias ls='ls --color=auto'
-alias ll='ls -l'
+alias ll='ls -lh' # human readable
+alias l='ls -lh' # human readable
 alias la='ls -la'
 alias db='x nemo /home/tiphanie/Dropbox'
 alias spotify='x spotify'
 alias w='networkmanager_dmenu'
 alias cfg='cd ~/.config/'
-alias meteo='wego'
 alias ..="cd .."
-alias dbcfc="mysql -h 212.47.241.162 -u root -p"
 alias android='android-studio'
 alias chromium='x chromium --disable-web-security'
 alias n='x nemo'
@@ -62,11 +65,12 @@ alias monitor="hc detect_monitors; hc reload"
 alias fr="setxkbmap fr"
 alias neo="setxkbmap de neo"
 alias v='vi $(fzf)'
-alias vv='vi ~/.vimrc'
+alias grep="grep --color=auto" # always highlight the search element
 
 ### Birthday project ###
 alias cda="cd ~/tentaine/anniversaire"
 alias anniv="cd ~/tentaine/anniversaire; sbt dev"
+
 ### Database ###
 # First start docker (systemctl start docker)
 # Then start the server for the DB (docker run -p 5432:5432 postgres:11.1)
@@ -101,7 +105,7 @@ alias yo='yaourt -Qo' # package for command
 alias yl='yaourt -Ql' # list files for package
 alias ye='yaourt -Qe --date' # list installed packages
 
-### CookForCouch ###
+### CookForCouch Project ###
 alias cfc="cd /home/tiphanie/CookForCouch"
 alias translationde="sudo chmod -R 777 /home/tiphanie/CookForCouch/app/cache/ && cfc && app/console translation:update --force --output-format=yml de CCFrontendBundle && app/console translation:update --force --output-format=yml de app"
 alias translationfr="sudo chmod -R 777 /home/tiphanie/CookForCouch/app/cache/ && cfc && app/console translation:update --force --output-format=yml fr CCFrontendBundle && app/console translation:update --force --output-format=yml fr app"
