@@ -21,17 +21,20 @@ export ELM_DEBUGGER=false
 # Aliases
 
 ### Hivemind ###
-alias ti="cd ~/Projects/Hivemind/bspayone/cbis-tim-data/"
-alias om="cd ~/Projects/Hivemind/bspayone/cbis-omnichannel/"
-alias ha="cd ~/Projects/Hivemind/hagebau/"
+alias ti="cd ~/Projects/Hivemind/Bspayone/cbis-tim-data/"
+alias om="cd ~/Projects/Hivemind/Bspayone/cbis-omnichannel/"
+alias ha="cd ~/Projects/Hivemind/Hagebau/"
 alias hi="cd ~/Projects/Hivemind/"
 
 # dotfile management
-DOTFILES_GIT='GIT_DIR=$HOME/Projects/dotfiles GIT_WORK_TREE=$HOME'
+DOTFILES_GIT='GIT_DIR=$HOME/Projects/Private/dotfiles GIT_WORK_TREE=$HOME'
 alias gitd="$DOTFILES_GIT git -c core.excludesfile=~/.gitignore-dotfiles"
 alias vv='vi ~/.vimrc'
 alias vb='vi ~/.bashrc'
 alias vg='vi ~/.gitconfig'
+alias vz='vi ~/.zshrc'
+alias rz='zsh' # reload zshell
+alias rb='bash' # reload bash
 
 ### divers ###
 alias pr="cd ~/Projects/"
@@ -152,13 +155,13 @@ export FZF_DEFAULT_OPTS="-x -m --ansi --exit-0 --select-1" # extended match and 
 
 #
 #='[\u@\h \W]\$ ' #u for user (tiphanie) and h for host (mango)
-export PS1="[\u@\h \W\[\033[32m\]\$(parse_git_branch)\[\033[00m\]]$ "
+# export PS1="[\u@\h \W\[\033[32m\]\$(parse_git_branch)\[\033[00m\]]$ "
 
 # Pacman
 alias pacmanrm="sudo rm /var/lib/pacman/db.lck" #if the error 'pacman is alreadw in use" occurs
 
 # Jump to recently used directories
-[[ -r "/usr/share/z/z.sh" ]] && source /usr/share/z/z.sh
+# [[ -r "/usr/share/z/z.sh" ]] && source /usr/share/z/z.sh
 
 
 # bash function
