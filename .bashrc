@@ -24,6 +24,7 @@ export ELM_DEBUGGER=false
 alias ti="cd ~/Projects/Hivemind/Bspayone/cbis-tim-data/"
 alias om="cd ~/Projects/Hivemind/Bspayone/cbis-omnichannel/"
 alias ha="cd ~/Projects/Hivemind/Hagebau/"
+alias ga="cd ~/Projects/Hivemind/ga-aggregations/"
 alias hi="cd ~/Projects/Hivemind/"
 
 # dotfile management
