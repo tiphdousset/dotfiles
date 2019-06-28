@@ -154,6 +154,9 @@ alias phpu="phpunit -c phpunit.xml" #start all php unit tests
 export FZF_DEFAULT_COMMAND='ag --hidden -g ""'
 export FZF_DEFAULT_OPTS="-x -m --ansi --exit-0 --select-1" # extended match and multiple selections
 
+#SBT configuration
+export SBT_OPTS="-Xmx8G"
+
 #
 #='[\u@\h \W]\$ ' #u for user (tiphanie) and h for host (mango)
 # export PS1="[\u@\h \W\[\033[32m\]\$(parse_git_branch)\[\033[00m\]]$ "
