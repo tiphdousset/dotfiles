@@ -164,6 +164,15 @@ export SBT_OPTS="-Xmx8G"
 # Pacman
 alias pacmanrm="sudo rm /var/lib/pacman/db.lck" #if the error 'pacman is alreadw in use" occurs
 
+# Ssh port forwarding
+sshforward() {
+    # usage: sshforward host remoteport [localport]
+    REMOTEHOST=$1
+    REMOTELOCALPORT=$2
+    LOCALPORT=${3:-$2}
+    ssh -NL ${LOCALPORT}:localhost:${REMOTELOCALPORT} ${REMOTEHOST}
+}
+
 # Jump to recently used directories
 # [[ -r "/usr/share/z/z.sh" ]] && source /usr/share/z/z.sh
 
