@@ -2,6 +2,7 @@
 	name = tiphanie
 	email = tiphanie.dousset@hivemindtechnologies.com
 [core]
+    pager = less --tabs=4 --RAW-CONTROL-CHARS --quit-if-one-screen --no-init
 	excludesfile = ~/.config/git/ignore
 
 [diff "scala"]
@@ -60,6 +61,7 @@
     ignore = "!f() { echo \"$1\" >> .gitignore; }; f"
     cl = clone
     b = branch
+    ba = branch --all
     br = branch -r
     dfls = diff --staged
     sdf = show --color-words
@@ -68,7 +70,7 @@
     pl = pull
     f = fetch
     fa = fetch --all
-    d = diff
+    d = diff --color-words
     l = log
     lg= log --oneline --all --graph --decorate # show git log with a graph
 
