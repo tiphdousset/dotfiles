@@ -13,6 +13,7 @@ Plug 'tpope/vim-surround' "surround text with quotes for example
 Plug 'ornicar/vim-scala'
 Plug 'kana/vim-textobj-user' " framework for custom text objects
 Plug 'PeterRincker/vim-argumentative'  " text object ',' / also provides argument movements with >, ],
+Plug 'Chiel92/vim-autoformat'
 call plug#end()
 
 function! s:find_git_root()
@@ -41,6 +42,7 @@ colorscheme molokai
 
  " define a group `vimrc` and initialize.
  augroup vimrc
+
      autocmd!
  augroup END
 
@@ -199,6 +201,11 @@ set mouse=a "click with mouse activated
 let g:multi_cursor_exit_from_visual_mode = 0
 let g:multi_cursor_exit_from_insert_mode = 0
 let mapleader="\<space>"
+
+" noremap <F5> :Autoformat<CR> " apply autoformat when pressing F5
+let g:formatdef_scalafmt = "'scalafmt --stdin'"
+let g:formatters_scala = ['scalafmt']
+au BufWrite *.scala :Autoformat "auto format on saving files
 
 
 " don't lose selection when indenting
