@@ -7,6 +7,8 @@ Plug 'tpope/vim-eunuch' "unix command to be able to modify a read-only file :Sud
 Plug 'davidhalter/jedi-vim' "completion tab for python file
 Plug 'terryma/vim-multiple-cursors' " sublime-like multiple cursors
 Plug 'airblade/vim-gitgutter' " VCS change info per line (only git)
+Plug 'junegunn/fzf'
+" Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim' " fuzzy selector
 Plug 'haya14busa/incsearch.vim' " highlight all matches in incremental search (conflicts with vim-indexed-search)
 Plug 'tpope/vim-surround' "surround text with quotes for example
@@ -14,6 +16,11 @@ Plug 'ornicar/vim-scala'
 Plug 'kana/vim-textobj-user' " framework for custom text objects
 Plug 'PeterRincker/vim-argumentative'  " text object ',' / also provides argument movements with >, ],
 Plug 'Chiel92/vim-autoformat'
+Plug 'junegunn/vim-easy-align'
+Plug 'tpope/vim-fugitive'
+Plug 'zirrostig/vim-schlepp'
+Plug 'junegunn/goyo.vim'
+
 call plug#end()
 
 function! s:find_git_root()
@@ -77,6 +84,7 @@ syntax enable
 " endif
 "
 set clipboard=unnamedplus
+set updatetime=100
 
 " " display
 " set cursorline                    " highlight current line

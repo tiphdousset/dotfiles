@@ -10,6 +10,9 @@ export ZSH="/Users/tiphaniedousset/.oh-my-zsh"
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 ZSH_THEME="spaceship"
 
+bindkey -v
+bindkey '^r' history-incremental-search-backward
+
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
 # a theme from this variable instead of looking in ~/.oh-my-zsh/themes/
@@ -155,3 +158,5 @@ source ~/.zshrc.vimode
 RPROMPT='${MODE_INDICATOR}'
 
 source ~/.bashrc
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

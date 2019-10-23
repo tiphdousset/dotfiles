@@ -4,16 +4,22 @@
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
-export GEM_HOME=$(ruby -e 'print Gem.user_dir')
+export GEM_HOM=$(ruby -e 'print Gem.user_dir')
 export VISUAL="nvim"
 export EDITOR="$VISUAL"
 # export PAGER=/usr/bin/vimpager
 # PATH="$(ruby -e 'print Gem.user_dir')/bin:$PATH"
 export PATH="/usr/lib/jvm/java-8-openjdk/bin:$PATH"
 export PATH="/Users/tiphanie/Library/Python/2.7/bin:$PATH"
+export PATH="/usr/local/Cellar/ruby/2.6.5/bin:$PATH"
+# /usr/local/opt/ruby/bin:$PATH
 export CLICOLOR=1
 export LSCOLORS=GxFxCxDxBxegedabagaced
 export ELM_DEBUGGER=false
+export PATH="/usr/local/opt/flutter/bin:$PATH"
+if which ruby >/dev/null && which gem >/dev/null; then
+    PATH="$(ruby -r rubygems -e 'puts Gem.user_dir')/bin:$PATH"
+fi
 
 # Memo
 # htop or atop to see CPU
@@ -21,11 +27,16 @@ export ELM_DEBUGGER=false
 # Aliases
 
 ### Hivemind ###
-alias ti="cd ~/Projects/Hivemind/Bspayone/cbis-tim-data/"
-alias om="cd ~/Projects/Hivemind/Bspayone/cbis-omnichannel/"
-alias ha="cd ~/Projects/Hivemind/Hagebau/"
-alias ga="cd ~/Projects/Hivemind/ga-aggregations/"
-alias hi="cd ~/Projects/Hivemind/"
+HIVEMIND="~/Projects/Hivemind/"
+PAYONE="~/Projects/Hivemind/PAYONE"
+alias hi="cd $HIVEMIND"
+alias ha="cd $HIVEMIND/Hagebau/"
+alias ga="cd $Hivemind/ga-aggregations/"
+alias pay="cd $PAYONE"
+alias tim="cd $PAYONE/cbis-tim-data/"
+alias om="cd $PAYONE/cbis-omnichannel/"
+alias dli="cd $PAYONE/cbis-data-lake-ingest/"
+alias omt="cd $PAYONE/cbis-datalake-omnichannel-testing"
 
 # dotfile management
 DOTFILES_GIT='GIT_DIR=$HOME/Projects/Private/dotfiles GIT_WORK_TREE=$HOME'
@@ -177,6 +188,10 @@ sshforward() {
 # [[ -r "/usr/share/z/z.sh" ]] && source /usr/share/z/z.sh
 
 
+# HIVEMIND
+alias ga_kafka="ssh -i ~/.ssh/hagebau/hbp-master -N -L 9001:kafka-manager.production.internal-service:9000 ubuntu@bastion.production.data-platform.hagebaudata.com"
+alias ga_postgres="ssh -i ~/.ssh/hagebau/hbp-master -N -L 5433:data-platform-production-marketsdata.cj7uoem9t1wj.eu-west-1.rds.amazonaws.com:5432 ubuntu@bastion.production.data-platform.hagebaudata.com"
+
 # bash function
 # Example 'x nemo' will start the file manager and close the terminal from where the command was entered
 x(){
@@ -191,3 +206,5 @@ parse_git_branch() {
 	    \git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
 
 };
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
