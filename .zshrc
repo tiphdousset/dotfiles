@@ -1,8 +1,9 @@
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
-
 # Path to your oh-my-zsh installation.
 export ZSH="/Users/tiphaniedousset/.oh-my-zsh"
+ZSH_DISABLE_COMPFIX=true
+DISABLE_MAGIC_FUNCTIONS=true
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -12,6 +13,7 @@ ZSH_THEME="spaceship"
 
 bindkey -v
 bindkey '^r' history-incremental-search-backward
+bindkey "^?" backward-delete-char
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -117,6 +119,8 @@ SPACESHIP_PROMPT_ORDER=(
   # char          # Prompt character
   )
 
+SPACESHIP_GIT_STATUS_STASHED=""
+
 # Which plugins would you like to load?
 # Standard plugins can be found in ~/.oh-my-zsh/plugins/*
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
@@ -159,4 +163,97 @@ RPROMPT='${MODE_INDICATOR}'
 
 source ~/.bashrc
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+# revert search
+# [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+autoload zmv
+
+function aws-sync() {
+    res=$(cdk-sso-sync $1 2>&1)
+    if [ "$?" -eq 1 ]
+    then
+        aws sso login --profile $1
+        cdk-sso-sync $1
+    fi
+}
+
+function aws-profile() {
+  local cache="$HOME/.aws-profile.cache"
+  local command=$1
+  case "$command" in
+    list)
+      if [ ! -f "$cache" ]; then aws configure list-profiles > "$cache" ; fi
+      cat $cache | grep --color=always "^\|$AWS_PROFILE"
+      ;;
+    cache)
+      aws configure list-profiles > "$cache"
+      cat $cache | grep --color=always "^\|$AWS_PROFILE"
+      ;;
+    show-cache)
+      cat $cache
+      ;;
+    account)
+      aws sts get-caller-identity | jq -rc '.Account'
+      ;;
+    set)
+      local profile=$2
+      unset AWS_PROFILE
+      unset AWS_ACCOUNT
+      unset AWS_REGION
+      export AWS_PROFILE=$profile
+      local account=$(aws configure get account)
+      if [ "$account" = "" ]
+      then 
+        echo "configured profile '$profile' hasn't got an account id"
+        echo "consider adding it with 'aws configure set account $(aws-profile account)'"
+      else
+        export AWS_ACCOUNT=$account
+      fi
+      local region=$(aws configure get region)
+      export AWS_REGION=$region
+      if [ ! -f "$cache" ]; then aws configure list-profiles > "$cache" ; fi
+      cat $cache | grep --color=always "^\|$AWS_PROFILE"
+      # aws-sync $profile
+      ;;
+    env)
+      env | grep AWS
+      ;;
+    *)
+      echo "Usage: aws-profile <cmd>"
+      echo "Possible <cmd>:"
+      echo "  list              list configured profiles in aws cli"
+      echo "  set <profile>     set the given <profile>"
+      echo "  account           account from sts caller identity"
+      echo "  env               list AWS current env variable values"
+      echo "  cache             cache profiles from cli to disk"
+      echo "  show-cache        same as list but without coloring"
+      ;;
+  esac
+}
+_aws-profile() {
+  type aws-profile > /dev/null || return -1
+  local cur prev opts
+  COMPREPLY=()
+  cur="${COMP_WORDS[COMP_CWORD]}"
+  prev="${COMP_WORDS[COMP_CWORD-1]}"
+  opts='list set env help cache'
+  if [[ "${prev}" == 'set' ]]
+  then
+    opts=$(aws-profile show-cache)
+  fi
+  if [[ ${cur} == * ]]
+  then
+    COMPREPLY=( $(compgen -W "${opts}" -- ${cur}) )
+    return 0
+  fi
+}
+complete -F _aws-profile aws-profile
+
+#NVM tool to be able to have multiple node versions
+export NVM_DIR="$HOME/.nvm"
+[ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"  # This loads nvm
+[ -s "/usr/local/opt/nvm/etc/bash_completion.d/nvm" ] && . "/usr/local/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
+
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="/Users/tiphaniedousset/.sdkman"
+[[ -s "/Users/tiphaniedousset/.sdkman/bin/sdkman-init.sh" ]] && source "/Users/tiphaniedousset/.sdkman/bin/sdkman-init.sh"
