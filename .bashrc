@@ -4,7 +4,7 @@
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
-export GEM_HOM=$(ruby -e 'print Gem.user_dir')
+export GEM_HOME=$(ruby -e 'print Gem.user_dir')
 export VISUAL="nvim"
 export EDITOR="$VISUAL"
 # export PAGER=/usr/bin/vimpager
@@ -12,14 +12,16 @@ export EDITOR="$VISUAL"
 export PATH="/usr/lib/jvm/java-8-openjdk/bin:$PATH"
 export PATH="/Users/tiphanie/Library/Python/2.7/bin:$PATH"
 export PATH="/usr/local/Cellar/ruby/2.6.5/bin:$PATH"
+export PATH="$HOME/Library/Android/sdk/platform-tools:$PATH"
 # /usr/local/opt/ruby/bin:$PATH
 export CLICOLOR=1
 export LSCOLORS=GxFxCxDxBxegedabagaced
 export ELM_DEBUGGER=false
-export PATH="/usr/local/opt/flutter/bin:$PATH"
+export PATH="/Users/tiphaniedousset/Projects/Private/flutter/bin:$PATH"
 if which ruby >/dev/null && which gem >/dev/null; then
     PATH="$(ruby -r rubygems -e 'puts Gem.user_dir')/bin:$PATH"
 fi
+export PKG_CONFIG_PATH="/usr/local/Cellar/imagemagick/7.0.8-68/lib/pkgconfig:$PKG_CONFIG_PATH"
 
 # Memo
 # htop or atop to see CPU
@@ -27,16 +29,61 @@ fi
 # Aliases
 
 ### Hivemind ###
-HIVEMIND="~/Projects/Hivemind/"
+
+## Payone ##
 PAYONE="~/Projects/Hivemind/PAYONE"
-alias hi="cd $HIVEMIND"
-alias ha="cd $HIVEMIND/Hagebau/"
-alias ga="cd $Hivemind/ga-aggregations/"
 alias pay="cd $PAYONE"
 alias tim="cd $PAYONE/cbis-tim-data/"
 alias om="cd $PAYONE/cbis-omnichannel/"
 alias dli="cd $PAYONE/cbis-data-lake-ingest/"
 alias omt="cd $PAYONE/cbis-datalake-omnichannel-testing"
+alias sdp="cd $PAYONE/cbis-sdp-services"
+# alias oc="openconnect-route53-vpn-splitter -u <VPN-USER> -p <AWS_PROFILE>"  #first password is for your system, then vpn password
+oc(){ openconnect-route53-vpn-splitter -u "$1" -p "$2"; } # $1 <VPN-USER> $2 <AWS_PROFILE>
+
+## Hagebau ##
+alias ga_kafka="ssh -i ~/.ssh/hagebau/hbp-master -N -L 9001:kafka-manager.production.internal-service:9000 ubuntu@bastion.production.data-platform.hagebaudata.com"
+alias ga_postgres="ssh -i ~/.ssh/hagebau/hbp-master -N -L 5433:data-platform-production-marketsdata.cj7uoem9t1wj.eu-west-1.rds.amazonaws.com:5432 ubuntu@bastion.production.data-platform.hagebaudata.com"
+
+
+HIVEMIND="~/Projects/Hivemind/"
+alias hiv="cd $HIVEMIND"
+alias ha="cd $HIVEMIND/Hagebau/"
+alias ga="cd $Hivemind/ga-aggregations/"
+alias docc="docker-compose"
+alias doc="docker"
+alias aws-ec2-describe-instances="aws ec2 describe-instances | jq -c '.Reservations[].Instances[] | {InstanceId, AvailabilityZone: .Placement.AvailabilityZone, Name: (.Tags | if . then . | from_entries | .Name else null end) , State: .State.Name, PublicDnsName}'"
+alias dockerStop="docker stop $(docker ps -a -q)"
+
+
+function aws-ec2-instance-connect-send-ssh-public-key() {
+  local byname=${1:-cbis.cicd.bastion}
+  echo "try to find instance for $byname"
+  local key="$(cat ~/.ssh/id_rsa.pub)"
+  local user="ec2-user"
+  local json=`aws-ec2-describe-instances | jq -c \
+    --arg byname "$byname" \
+    --arg user "$user" \
+    --arg key "$key" \
+    'select(.Name == $byname) | select(.State == "running") | {InstanceId, AvailabilityZone, InstanceOSUser: "\($user)", SSHPublicKey: "\($key)"}'
+  `
+  echo "found: $json"
+  aws ec2-instance-connect send-ssh-public-key --cli-input-json $json
+}
+
+function exportStaging() {
+    export USER_POOL_ID=eu-west-1_2CjdSL4D0
+    export USER_POOL_WEB_CLIENT_ID=3c71riu4mnr7takur3isk1h9cg
+    export API_BASE_URL=https://9b9t0h4385.execute-api.eu-west-1.amazonaws.com/prod
+    export ENVIRONMENT=staging
+}
+
+function exportDev() {
+    export USER_POOL_ID=eu-west-1_ZbWfae2U0 
+    export USER_POOL_WEB_CLIENT_ID=31lr91d13vsdp2hu1dajmoimo1
+    export API_BASE_URL=https://v59otf5g9e.execute-api.eu-west-1.amazonaws.com/prod
+    export ENVIRONMENT=dev
+}
 
 # dotfile management
 DOTFILES_GIT='GIT_DIR=$HOME/Projects/Private/dotfiles GIT_WORK_TREE=$HOME'
@@ -48,8 +95,12 @@ alias vz='vi ~/.zshrc'
 alias rz='zsh' # reload zshell
 alias rb='bash' # reload bash
 
+### listo ###
+PRIVATE="~/Projects/Private"
+alias listo="cd $PRIVATE/listo"
+
 ### divers ###
-alias pr="cd ~/Projects/"
+alias pr="cd ~/Projects/Private"
 alias dw="cd ~/Downloads/"
 alias vi=$EDITOR
 alias vim=$EDITOR
@@ -79,12 +130,32 @@ alias hc="herbstclient"
 alias monitor="hc detect_monitors; hc reload"
 alias fr="setxkbmap fr"
 alias neo="setxkbmap de neo"
-alias v='vi $(fzf)'
+
+# fzf over all files in git repo
+v() {
+    (
+        cd-git-root > /dev/null
+        file="$(fzf --query="$(echo $@ | tr ' ' '\ ' )")"
+        [[ -n $file ]] && $EDITOR "$file"
+    );
+}
+
+cd-git-root () {
+	dir=$(git rev-parse --show-toplevel 2> /dev/null) 
+	if [[ $? != 0 ]]
+	then
+		printf 'Not a git repository\n'
+		return 1
+	fi
+	builtin cd "$dir"
+}
+
 alias grep="grep --color=auto" # always highlight the search element
 
 ### Birthday project ###
 alias cda="cd ~/tentaine/anniversaire"
 alias anniv="cd ~/tentaine/anniversaire; sbt dev"
+alias mmv='noglob zmv -W'
 
 ### Database ###
 # First start docker (systemctl start docker)
@@ -162,7 +233,7 @@ alias sshpi="ssh -p 33500 pi@tiph.ddns.net" #mangoPi23
 alias phpu="phpunit -c phpunit.xml" #start all php unit tests
 
 # fzf fuzzy file finder
-export FZF_DEFAULT_COMMAND='ag --hidden -g ""'
+export FZF_DEFAULT_COMMAND='rg --files'
 export FZF_DEFAULT_OPTS="-x -m --ansi --exit-0 --select-1" # extended match and multiple selections
 
 #SBT configuration
@@ -188,10 +259,6 @@ sshforward() {
 # [[ -r "/usr/share/z/z.sh" ]] && source /usr/share/z/z.sh
 
 
-# HIVEMIND
-alias ga_kafka="ssh -i ~/.ssh/hagebau/hbp-master -N -L 9001:kafka-manager.production.internal-service:9000 ubuntu@bastion.production.data-platform.hagebaudata.com"
-alias ga_postgres="ssh -i ~/.ssh/hagebau/hbp-master -N -L 5433:data-platform-production-marketsdata.cj7uoem9t1wj.eu-west-1.rds.amazonaws.com:5432 ubuntu@bastion.production.data-platform.hagebaudata.com"
-
 # bash function
 # Example 'x nemo' will start the file manager and close the terminal from where the command was entered
 x(){
@@ -207,4 +274,7 @@ parse_git_branch() {
 
 };
 
-[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
