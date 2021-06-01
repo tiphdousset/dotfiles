@@ -1,25 +1,33 @@
 set nocompatible
 call plug#begin('~/.vim/plugged')
 Plug 'tomasr/molokai' "colorscheme
+Plug 'drewtempelmeyer/palenight.vim'
 Plug 'tpope/vim-commentary' "comment
 Plug 'vim-ruby/vim-ruby'
 Plug 'tpope/vim-eunuch' "unix command to be able to modify a read-only file :SudoWrite
 Plug 'davidhalter/jedi-vim' "completion tab for python file
+" deprecated
 Plug 'terryma/vim-multiple-cursors' " sublime-like multiple cursors
+" Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 Plug 'airblade/vim-gitgutter' " VCS change info per line (only git)
 Plug 'junegunn/fzf'
 " Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim' " fuzzy selector
-Plug 'haya14busa/incsearch.vim' " highlight all matches in incremental search (conflicts with vim-indexed-search)
+" Plug 'haya14busa/incsearch.vim' " highlight all matches in incremental search (conflicts with vim-indexed-search)
 Plug 'tpope/vim-surround' "surround text with quotes for example
 Plug 'ornicar/vim-scala'
 Plug 'kana/vim-textobj-user' " framework for custom text objects
 Plug 'PeterRincker/vim-argumentative'  " text object ',' / also provides argument movements with >, ],
-Plug 'Chiel92/vim-autoformat'
 Plug 'junegunn/vim-easy-align'
 Plug 'tpope/vim-fugitive'
 Plug 'zirrostig/vim-schlepp'
 Plug 'junegunn/goyo.vim'
+Plug 'frazrepo/vim-rainbow'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'purescript-contrib/purescript-vim'
+Plug 'leafgarland/typescript-vim'
+Plug 'dart-lang/dart-vim-plugin', {'for': 'dart'}
+Plug 'tpope/vim-abolish' "Working with words
 
 call plug#end()
 
@@ -30,13 +38,27 @@ endfunction
 command! ProjectFiles execute 'Files' s:find_git_root()
 
 syntax on
-colorscheme molokai
+colorscheme palenight
+
+
+if (has("nvim"))
+  "For Neovim 0.1.3 and 0.1.4 < https://github.com/neovim/neovim/pull/2198 >
+  let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+endif
+
+"For Neovim > 0.1.5 and Vim > patch 7.4.1799 < https://github.com/vim/vim/commit/61be73bb0f965a895bfb064ea3e55476ac175162 >
+"Based on Vim patch 7.4.1770 (`guicolors` option) < https://github.com/vim/vim/commit/8a633e3427b47286869aa4b96f2bfc1fe65b25cd >
+" < https://github.com/neovim/neovim/wiki/Following-HEAD#20160511 >
+if (has("termguicolors"))
+  set termguicolors
+endif
+
 
 " TODO: exit insert mode on <Up>/<Down>, move inside wrapped lines
 " TODO: leave insert mode when losing focus?
 " TODO: remove stuff, thats already in vim-sensible
 " http://chibicode.com/vimrc/
-" http://nvie.com/posts/how-i-boosted-my-vim/
+":hi Visual guifg=#FFFFFF guibg=#4088FF http://nvie.com/posts/how-i-boosted-my-vim/
 
 
 " Use Vim settings, rather than Vi settings
@@ -141,6 +163,8 @@ set mouse=a "click with mouse activated
  set backupdir=~/.vim/tmp/backup// " backups
  set directory=~/.vim/tmp/swap//   " swap files
 
+set backupcopy=yes " fix file watching (e.g. parcel) https://stackoverflow.com/a/59227891
+
  " Make those folders automatically if they don't already exist.
  if !isdirectory(expand(&undodir))
      call mkdir(expand(&undodir), "p")
@@ -178,14 +202,14 @@ set mouse=a "click with mouse activated
 
  " return to last edit position when opening a file.
  " except for git commits: Enter insert mode instead.
- autocmd vimrc BufReadPost *
- \ if line("'\"") > 0 && line("'\"") <= line("$") |
- \   if &filetype == 'gitcommit' |
- \       setlocal spell |
- \   else |
- \      exe "normal! g`\"" |
- \    endif |
- \ endif
+ " autocmd vimrc BufReadPost *
+ " \ if line("'\"") > 0 && line("'\"") <= line("$") |
+ " \   if &filetype == 'gitcommit' |
+ " \       setlocal spell |
+ " \   else |
+ " \      exe "normal! g`\"" |
+ " \    endif |
+ " \ endif
 
 
 " " leave insert mode quickly
@@ -211,9 +235,12 @@ let g:multi_cursor_exit_from_insert_mode = 0
 let mapleader="\<space>"
 
 " noremap <F5> :Autoformat<CR> " apply autoformat when pressing F5
-let g:formatdef_scalafmt = "'scalafmt --stdin'"
-let g:formatters_scala = ['scalafmt']
-au BufWrite *.scala :Autoformat "auto format on saving files
+" let g:formatdef_scalafmt = "'scalafmt --stdin'"
+" let g:formatters_scala = ['scalafmt']
+" au BufWrite *.scala :Autoformat "auto format on saving files
+
+" rainbow parentheses
+let g:rainbow_active = 1
 
 
 " don't lose selection when indenting
@@ -222,9 +249,35 @@ vnoremap > >gv
 vnoremap = =gv
 nnoremap <silent> <Leader><Leader> :nohlsearch<cr>
 
+nnoremap <silent> <leader><c-n> :MultipleCursorsFind <C-R>/<CR>
+vnoremap <silent> <leader><c-n> :MultipleCursorsFind <C-R>/<CR>
+
 nmap <Leader>e :ProjectFiles<CR>
 nmap <Leader>vv :e  ~/.vimrc<CR>
 
 map Q <Nop>
 
 nmap <Leader>/ :nohls <cr>
+nmap <leader>f <Plug>(coc-format)
+
+" use <tab> for trigger completion and navigate to the next complete item
+" https://github.com/neoclide/coc.nvim/wiki/Completion-with-sources#use-tab-or-custom-key-for-trigger-completion
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~ '\s'
+endfunction
+
+inoremap <silent><expr> <Tab>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<Tab>" :
+      \ coc#refresh()
+
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gr <Plug>(coc-references)
+nmap <silent> <space>N :call CocAction('diagnosticPrev')<cr>
+nmap <silent> <space>n :call CocAction('diagnosticNext')<cr>
+" Use <c-space> for trigger completion.
+inoremap <silent><expr> <c-space> coc#refresh()
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+
+hi Visual guifg=#FFFFFF guibg=#4088FF
