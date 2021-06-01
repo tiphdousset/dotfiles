@@ -3,7 +3,7 @@
 	email = tiphanie.dousset@hivemindtechnologies.com
 [core]
     pager = less --tabs=4 --RAW-CONTROL-CHARS --quit-if-one-screen --no-init
-	excludesfile = ~/.config/git/ignore
+	excludesfile = /Users/tiphaniedousset/.gitignore_global
 
 [diff "scala"]
     xfuncname = "^\\s*(.*(def|object|class|trait) .*)$"
@@ -49,6 +49,7 @@
     s = status
     su = status -uno #  do not show untracked files
     a = add
+    aa = add --all
     ch = checkout
     chb = checkout -b
     c = commit
@@ -100,3 +101,7 @@
     cpc = cherry-pick --continue
 
     h = help
+
+    # clb = "fetch -p && git branch -vv | awk '/: gone]/{print $1}' | xargs git branch -D" # remove all local branches that are gone in the upstream
+[http]
+	postBuffer = 157286400
