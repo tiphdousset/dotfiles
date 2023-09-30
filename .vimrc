@@ -1,3 +1,10 @@
+" using plugin manager vim-plug.
+" auto-install if not found
+if empty(glob('~/.vim/autoload/plug.vim'))
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall | source $MYVIMRC
+endif
 set nocompatible
 call plug#begin('~/.vim/plugged')
 Plug 'tomasr/molokai' "colorscheme
@@ -19,7 +26,6 @@ Plug 'ornicar/vim-scala'
 Plug 'kana/vim-textobj-user' " framework for custom text objects
 Plug 'PeterRincker/vim-argumentative'  " text object ',' / also provides argument movements with >, ],
 Plug 'junegunn/vim-easy-align'
-Plug 'tpope/vim-fugitive'
 Plug 'zirrostig/vim-schlepp'
 Plug 'junegunn/goyo.vim'
 Plug 'frazrepo/vim-rainbow'
@@ -28,6 +34,9 @@ Plug 'purescript-contrib/purescript-vim'
 Plug 'leafgarland/typescript-vim'
 Plug 'dart-lang/dart-vim-plugin', {'for': 'dart'}
 Plug 'tpope/vim-abolish' "Working with words
+" Plug 'bfredl/nvim-miniyank' "For block pasting https://github.com/neovim/neovim/issues/13052
+map p <Plug>(miniyank-autoput)
+map P <Plug>(miniyank-autoPut)
 
 call plug#end()
 
@@ -38,7 +47,8 @@ endfunction
 command! ProjectFiles execute 'Files' s:find_git_root()
 
 syntax on
-colorscheme palenight
+" colorscheme palenight
+colorscheme dim
 
 
 if (has("nvim"))
@@ -149,7 +159,7 @@ set updatetime=100
 " set ttyfast                       " allow vim to write more characters to screen
  set autoread                      " read file when changed from outside
  set confirm                       " ask to save files when closing vim
-" set exrc                          " source .vimrc from directories
+" set exrc                         " source .vimrc from directories
 " set secure                        " secure local vimrc execution
 " set wildignore=*.o,*.obj,*.class,target/**
 " set viewoptions=cursor,folds,slash,unix
@@ -164,7 +174,7 @@ set mouse=a "click with mouse activated
  set directory=~/.vim/tmp/swap//   " swap files
 
 set backupcopy=yes " fix file watching (e.g. parcel) https://stackoverflow.com/a/59227891
-
+" set inccommand=nosplit " preview replace in search
  " Make those folders automatically if they don't already exist.
  if !isdirectory(expand(&undodir))
      call mkdir(expand(&undodir), "p")

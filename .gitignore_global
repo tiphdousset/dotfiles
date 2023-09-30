@@ -136,7 +136,6 @@ dmypy.json
 .ivy2/
 .metals/
 
-*.sc
 docker/.home/
 
 .gradle/

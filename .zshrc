@@ -1,9 +1,26 @@
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 # Path to your oh-my-zsh installation.
-export ZSH="/Users/tiphaniedousset/.oh-my-zsh"
 ZSH_DISABLE_COMPFIX=true
+export ZSH="/Users/tiphaniedousset/.oh-my-zsh"
 DISABLE_MAGIC_FUNCTIONS=true
+export PATH=$HOME/.local/bin:$PATH
+
+source "${HOME}/.zgen/zgen.zsh"
+if ! zgen saved; then
+    echo "creating zgen save..."
+    zgen oh-my-zsh # oh-my-zsh default settings
+    zgen load rupa/z # jump to most used directories
+    zgen load dottr/dottr
+    zgen load denysdovhan/spaceship-prompt spaceship
+    zgen load joel-porquet/zsh-dircolors-solarized.git
+    zgen load zsh-users/zsh-autosuggestions
+    zgen load zsh-users/zsh-syntax-highlighting # order is important (https://github.com/zsh-users/zsh-syntax-highlighting#why-must-zsh-syntax-highlightingzsh-be-sourced-at-the-end-of-the-zshrc-file)
+    # zgen load jeffreytse/zsh-vi-mode
+    zgen load kutsan/zsh-system-clipboard
+    zgen load b4b4r07/zsh-vimode-visual
+    zgen save
+fi
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -126,12 +143,12 @@ SPACESHIP_GIT_STATUS_STASHED=""
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git zsh-syntax-highlighting zsh-autosuggestions zsh-vimode-visual)
+# plugins=(git zsh-syntax-highlighting zsh-autosuggestions zsh-vimode-visual)
 
 # Allow the use of the z plugin to easily navigate directories
-. /usr/local/etc/profile.d/z.sh
+# . /usr/local/etc/profile.d/z.sh
 
-source $ZSH/oh-my-zsh.sh
+# source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
@@ -164,7 +181,7 @@ RPROMPT='${MODE_INDICATOR}'
 source ~/.bashrc
 
 # revert search
-# [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 autoload zmv
 
@@ -249,11 +266,12 @@ _aws-profile() {
 }
 complete -F _aws-profile aws-profile
 
-#NVM tool to be able to have multiple node versions
-export NVM_DIR="$HOME/.nvm"
-[ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"  # This loads nvm
-[ -s "/usr/local/opt/nvm/etc/bash_completion.d/nvm" ] && . "/usr/local/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
+eval "$(direnv hook zsh)" # load env vars depending on directory
 
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="/Users/tiphaniedousset/.sdkman"
 [[ -s "/Users/tiphaniedousset/.sdkman/bin/sdkman-init.sh" ]] && source "/Users/tiphaniedousset/.sdkman/bin/sdkman-init.sh"
+
+
+# added by Snowflake SnowSQL installer v1.2
+export PATH=/Applications/SnowSQL.app/Contents/MacOS:$PATH

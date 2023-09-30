@@ -1,6 +1,7 @@
 [user]
 	name = tiphanie
 	email = tiphanie.dousset@hivemindtechnologies.com
+
 [core]
     pager = less --tabs=4 --RAW-CONTROL-CHARS --quit-if-one-screen --no-init
 	excludesfile = /Users/tiphaniedousset/.gitignore_global
@@ -15,13 +16,13 @@
 	helper = osxkeychain
 
 [pull]
-    ff = only 
-	rebase = true
+  ff = only 
 
 [diff]
     algorithm = histogram
     indentHeuristic = true
     wordRegex=[A-Z][a-z]*|[a-z]+|[^[:space:]] # see camel case as separate words
+    ignore-space-change = true
 
 [commit]
     verbose = true
@@ -33,11 +34,14 @@
     ff = only
     ignore-space-change = true
     conflictstyle = diff3 # this allows to show 3 panes in meld
-    tool = meld
+
+[rerere]
+    enabled = 1 # Reuse recorded resolution of conflicted merges: https://git-scm.com/docs/git-rerere
 
 [rebase]
     autoStash = true
     autoSquash = true # useful for `git commit --fixup <hash>` (https://fle.github.io/git-tip-keep-your-branch-clean-with-fixup-and-autosquash.html)
+    ignore-space-change = true
 
 [status]
     showUntrackedFiles = all
@@ -68,7 +72,7 @@
     sdf = show --color-words
     ps = push
     pf = push --force-with-lease
-    pl = pull
+    pl = pull --rebase --autostash
     f = fetch
     fa = fetch --all
     d = diff --color-words
@@ -104,4 +108,10 @@
 
     # clb = "fetch -p && git branch -vv | awk '/: gone]/{print $1}' | xargs git branch -D" # remove all local branches that are gone in the upstream
 [http]
-	postBuffer = 157286400
+    postBuffer = 157286400
+
+[branch]
+  autoSetupRebase = always
+
+[includeIf "gitdir:/Users/tiphaniedousset/Projects/Hivemind/Payone"]
+    path = /Users/tiphaniedousset/Projects/Hivemind/Payone/.gitconfig
