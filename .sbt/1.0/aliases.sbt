@@ -1,8 +1,0 @@
-addCommandAlias("c", "compile")
-addCommandAlias("r", "reload")
-addCommandAlias("tc", "test:compile")
-addCommandAlias("t", "test")
-addCommandAlias("tt", "~test")
-addCommandAlias("cd", "project")
-addCommandAlias("l", "projects")
-addCommandAlias("du", "dependencyUpdates")
