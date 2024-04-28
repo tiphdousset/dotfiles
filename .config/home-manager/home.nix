@@ -135,6 +135,8 @@ in
       kubernetes = {
         disabled = false;
         format = "[$symbol$namespace]($style) in ";
+        detect_files = ["docker-compose.yaml"];
+        symbol = "k8s ";
         contexts = [
           {
             context_pattern = "*prod*";
