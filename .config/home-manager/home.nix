@@ -149,7 +149,10 @@ in
       java.disabled = true;
       docker_context.disabled = true;
       dart.disabled = true;
-      package.disabled = true;
+      package.disabled = true; # do not show npm, cargo etc
+      nix_shell.disabled = true;
+      nodejs.disabled = true;
+
     };
   };
 
