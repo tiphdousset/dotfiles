@@ -152,7 +152,7 @@ in
       package.disabled = true; # do not show npm, cargo etc
       nix_shell.disabled = true;
       nodejs.disabled = true;
-
+      git_status.stashed = "";
     };
   };
 
