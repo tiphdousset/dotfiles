@@ -52,7 +52,8 @@ in
     nixpkgs-fmt
     nodejs
     # rnix-lsp
-    rust.packages.stable.rustPlatform.rustcSrc
+    # rust.packages.stable.rustPlatform.rustcSrc 
+    rustc
     rustfmt
     # sbt
     my-sbt 
@@ -299,6 +300,7 @@ in
     #   gpgPath = "ssh";
     # };
     ignores = [
+      "snowflake*.pk8"
       # ".bloop"
       # "sbt"
       # "m2"
