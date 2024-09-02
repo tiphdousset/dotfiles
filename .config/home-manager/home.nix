@@ -1,7 +1,6 @@
 { config, pkgs, ... }:
 let
   aws-vault-custom = (pkgs.callPackage ./aws-vault-derivation.nix { });
-  my-sbt = pkgs.sbt.override { jre = pkgs.jdk19_headless; };
 in
 {
   nixpkgs = {
@@ -55,8 +54,7 @@ in
     # rust.packages.stable.rustPlatform.rustcSrc 
     rustc
     rustfmt
-    # sbt
-    my-sbt 
+    sbt
     scala
     git
     cocoapods
@@ -121,10 +119,13 @@ in
 
     # rust
     RUST_SRC_PATH = "${pkgs.rust.packages.stable.rustPlatform.rustLibSrc}";
+
+
   };
 
   home.sessionPath = [
     "$HOME/.pub-cache/bin"
+    "$HOME/development/flutter/bin"
   ];
 
   programs.home-manager.enable = true;
@@ -392,6 +393,7 @@ in
         po = "!git push --set-upstream origin \"$(git rev-parse --abbrev-ref HEAD)\""; 
         # delete local branches that are not anymore present on the remote
         prune-local = "!git fetch -p && for branch in $(git for-each-ref --format '%(refname) %(upstream:track)' refs/heads | awk '$2 == \"[gone]\" {sub(\"refs/heads/\", \"\", $1); print $1}'); do (echo -n \"DELETE $branch? [y/N]: \"; read -r answer; [[ \"$answer\" =~ ^(y|Y) ]]) && git branch -D $branch; done";
+        snowsql = "/Applications/SnowSQL.app/Contents/MacOS/snowsql";
       };
       # push = {
       #   default = "current";
