@@ -80,6 +80,7 @@ in
 
     colordiff
     ffmpeg
+    devbox
 
     # Listo
     # android-studio
