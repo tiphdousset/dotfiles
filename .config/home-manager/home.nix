@@ -21,6 +21,12 @@ in
   # release notes.
   home.stateVersion = "23.05"; # Please read the comment before changing.
 
+  home.sessionVariables = {
+  # colorize less
+    LESS = "--use-color --RAW-CONTROL-CHARS --incsearch --ignore-case --mouse";
+    PAGER = "less --RAW-CONTROL-CHARS"; # less with colors
+  };
+
   home.packages = with pkgs; [
     bash
     fzf
@@ -41,6 +47,7 @@ in
     wget
     ammonite
     postgresql
+    pwgen
 
     # Dev
     cargo
@@ -61,6 +68,7 @@ in
     # snowsql
     # supabase-cli
     # python3
+    python313
     gradle
 
     # IaC
@@ -71,6 +79,7 @@ in
     terraform
     terragrunt
     tfk8s
+    azure-cli
 
     # Kubernetes
     k9s
@@ -180,7 +189,8 @@ in
       vi = "nvim";
       ij = "open -na \"IntelliJ IDEA CE.app\" --args \"$@\"";
       hm = "cd ~/.config/home-manager";
-      docc = "docker-compose";
+      docc = "docker compose";
+      dup = "docker compose up -d";
       doc = "docker";
       rz = "zsh"; # reload zshell
       hms = "home-manager switch";
@@ -229,12 +239,14 @@ in
 
     profileExtra = ''
       eval "$(/opt/homebrew/bin/brew shellenv)"
+      eval "$(${pkgs.devbox}/bin/devbox global shellenv)"
     '';
 
     # initExtra = ''
     #   # eval "$(atuin init zsh)"
     #   # eval "$(direnv hook zsh)"
     # '';
+
 
     initExtraBeforeCompInit = ''
       export ZDOTDIR=${config.xdg.cacheHome}/zsh
@@ -309,11 +321,11 @@ in
       # ".metals"
       # "ivy2"
       # "metals"
-      # ".DS_Store"
+      ".DS_Store"
       # ".idea"
       # ".vscode"
       # ".direnv"
-      # ".envrc"
+      ".envrc"
       # "shell.nix"
       # ".gradle"
       # ".project"
@@ -394,7 +406,7 @@ in
         po = "!git push --set-upstream origin \"$(git rev-parse --abbrev-ref HEAD)\""; 
         # delete local branches that are not anymore present on the remote
         prune-local = "!git fetch -p && for branch in $(git for-each-ref --format '%(refname) %(upstream:track)' refs/heads | awk '$2 == \"[gone]\" {sub(\"refs/heads/\", \"\", $1); print $1}'); do (echo -n \"DELETE $branch? [y/N]: \"; read -r answer; [[ \"$answer\" =~ ^(y|Y) ]]) && git branch -D $branch; done";
-        snowsql = "/Applications/SnowSQL.app/Contents/MacOS/snowsql";
+        # snowsql = "/Applications/SnowSQL.app/Contents/MacOS/snowsql";
       };
       # push = {
       #   default = "current";
