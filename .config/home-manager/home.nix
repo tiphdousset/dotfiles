@@ -48,7 +48,9 @@ in
     ammonite
     postgresql
     pwgen
-
+    miniserve
+    git-filter-repo
+    
     # Dev
     cargo
     clippy
@@ -90,6 +92,8 @@ in
     colordiff
     ffmpeg
     devbox
+
+    # ghostty
 
     # Listo
     # android-studio
@@ -188,6 +192,7 @@ in
       vim = "nvim";
       vi = "nvim";
       ij = "open -na \"IntelliJ IDEA CE.app\" --args \"$@\"";
+      cursor = "open -na \"Cursor.app\" --args \"$@\"";
       hm = "cd ~/.config/home-manager";
       docc = "docker compose";
       dup = "docker compose up -d";
@@ -195,8 +200,7 @@ in
       rz = "zsh"; # reload zshell
       hms = "home-manager switch";
       npu = "nix-channel --update && home-manager switch"; # update packages installed via home manager && switch to new channel
-      buu = "brew update && brew upgrade";
-      update-all = "buu && npu";
+      update-all = "devbox global update && brew update && brew upgrade && npu";
 
       # dotfile management
       gitd = "GIT_DIR=${PRIVATE}/Projects/dotfiles GIT_WORK_TREE=${HOME} git -c status.showUntrackedFiles=no";
